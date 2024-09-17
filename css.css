@@ -1,0 +1,42 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+#routingButton {
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    border-radius: 5px;
+    border: 2px solid pink; /* Corrected border-color syntax */
+    background-color: rgb(256, 256, 256);
+    background-image: url('./Additional files/route.png'); /* Ensure the path is correct */
+    background-size: cover;
+    cursor: pointer;
+    z-index: 1000; /* Ensures the button is on top of the map */
+    display: block;
+}
+
+#routingButton .fa-solid {
+    font-size: 2em; /* Icon size */
+}
+
+/* Style the divisions dropdown */
+#divisions {
+    position: absolute;
+    top: 120px; /* 70px from the top */
+    right: 0px; /* 20px from the right */
+    font-size: 20px;
+    z-index: 1000; /* Ensure it's visible above the map */
+    padding: 5px; /* Optional: add some padding for better spacing */
+    background-color: white; /* Optional: background color */
+    border: 1px solid #ccc; /* Optional: border styling */
+    border-radius: 5px; /* Optional: rounded corners */
+}

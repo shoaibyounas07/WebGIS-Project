@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS Developing Project</title> <!-- Sets the title of the webpage -->
+
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+    <!-- Include Leaflet Geosearch CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+
+    <!-- Include Leaflet Geolocate CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.81.1/dist/L.Control.Locate.min.css" rel="stylesheet">
+
+    <!-- Include Leaflet Draw CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+
+    <!-- Include Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="./css.css"> <!-- Links to a custom CSS file for additional styling -->
+
+    <!-- Links TAG TO WWW.FONTICON  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    
+    <select id="divisions" name="divisions">
+        <option value="Azad Kashmir">Azad Kashmir</option>
+        <option value="Bahawalpur">Bahawalpur</option>
+        <option value="Bannu">Bannu</option>
+        <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+        <option value="Faisalabad">Faisalabad</option>
+        <option value="F.A.T.A.">F.A.T.A.</option>
+        <option value="Gujranwala">Gujranwala</option>
+        <option value="Hazara">Hazara</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Kalat">Kalat</option>
+        <option value="Karachi">Karachi</option>
+        <option value="Lahore">Lahore</option>
+        <option value="Multan">Multan</option>
+        <option value="Rawalpindi">Rawalpindi</option>
+       
+        <option value="Sargodha">Sargodha</option>
+       
+       
+        <option value="Mirpur Khas">Mirpurkhas</option>
+        <option value="Larkana">Larkana</option>
+        <option value="Rann of Kutch">Rann of Kutch</option>
+        <option value="Sukkur">Sukkur</option>
+        <option value="Quetta">Quetta</option>
+        
+        <option value="Makran">Makran</option>
+        <option value="Nasirabad">Nasirabad</option>
+        <option value="Sibi">Sibbi</option>
+       
+        <option value="Islamabad">Islamabad</option>
+    
+      
+        <option value="Dera Ismail Khan">Dera Ismail Khan</option>
+       
+        <option value="Kohat">Kohat</option>
+        <option value="Malakand">Malakand</option>
+        <option value="Mardan">Mardan</option>
+        <option value="Peshawar">Peshawar</option>
+        
+       
+        <option value="Northern Areas">Northern Areas</option>
+       
+        <option value="Zhob">Zhob</option>
+    </select>
+    <!-- Container for the map -->
+    <div id="map"></div> <!-- Creates a div element with an id of 'map' to hold the Leaflet map -->
+
+    <button id="routingButton"><i class="fa-solid fa-map-location"> </i></button>
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Include Leaflet Geosearch JavaScript -->
+    <script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script> 
+
+    <!-- Include Leaflet Geolocate JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.81.1/dist/L.Control.Locate.min.js"></script>
+
+    <!-- Include Leaflet Draw JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+
+ <!-- Include Leaflet Routing Machine JS -->
+ <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+ <!-- Include Leaflet Control Geocoder JS -->
+ <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+ 
+    <!-- Include Leaflet-featues_geojson Search CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.0/dist/leaflet-search.min.css" />
+    <script src="https://unpkg.com/leaflet-search@3.0.0/dist/leaflet-search.min.js"></script>
+
+    <!-- Include your custom JavaScript file -->
+    <script src="./javascript.js"></script> <!-- Links to a custom JavaScript file for map functionality -->./
+<script src="./features.js"></script>
+
+<script>
+var PakDistrictsLayer = L.geoJSON(PakDistricts, {
+    style: function (feature) {
+        return {
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0.2
+        };
+    },
+    onEachFeature: function (feature, layer) {
+        // Optional: Add popup for each feature
+        layer.bindPopup( feature.properties.name_2);
+    }
+}).addTo(map);
+
+// Add event listener to the dropdown
+document.getElementById('divisions').addEventListener('change', function () {
+  var selectedPolygon = this.value;
+  PakDistrictsLayer.eachLayer(function (layer) {
+    if (layer.feature.properties.name_2 === selectedPolygon) {
+      map.fitBounds(layer.getBounds());
+      layer.setStyle({
+        fillColor: 'yellow',
+        fillOpacity: 0.7,
+        weight: 3
+      });
+      layer.bindPopup(layer.feature.properties.name_2).openPopup();
+
+    } else {
+      PakDistrictsLayer.resetStyle(layer);
+    }
+  });
+});
+
+
+
+
+
+  
+  </script>
+   
+</body>
+</html>
